@@ -1,7 +1,6 @@
 ﻿namespace CScharf.Dataverse;
 
 /// <summary>
-/// 
 /// </summary>
 /// <typeparam name="TEntity"></typeparam>
 public class AttributeResolver<TEntity> where TEntity : Entity
@@ -36,7 +35,7 @@ public class AttributeResolver<TEntity> where TEntity : Entity
     public TEntity TargetEntity { get; }
 
     /// <summary>
-    /// Get value TValue from entity. Lookup order 1st Entity, 2nd PreEntityImage, 3rd default!
+    ///     Get value TValue from entity. Lookup order 1st Entity, 2nd PreEntityImage, 3rd default!
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
     /// <param name="attributeExpression">lookup attribute expression</param>
@@ -48,19 +47,27 @@ public class AttributeResolver<TEntity> where TEntity : Entity
         var attributeName = GetAttributeLogicalName(attributeExpression);
 
         if (TargetEntity.Contains(attributeName))
+        {
             value = (TValue)TargetEntity[attributeName];
-        else if (PreEntity != default(TEntity) && PreEntity.Contains(attributeName)) value = (TValue)PreEntity[attributeName];
+        }
+        else if (PreEntity != default(TEntity) && PreEntity.Contains(attributeName))
+        {
+            value = (TValue)PreEntity[attributeName];
+        }
 
         return value;
     }
 
     /// <summary>
-    /// Merge Entity and PreEntityImage
+    ///     Merge Entity and PreEntityImage
     /// </summary>
     /// <returns>merged entity (like postimage)</returns>
     public TEntity Merge()
     {
-        if (PreEntity == default(TEntity)) return TargetEntity;
+        if (PreEntity == default(TEntity))
+        {
+            return TargetEntity;
+        }
 
         var mergedEntity = new Entity { Id = PreEntity.Id, LogicalName = PreEntity.LogicalName };
 
@@ -71,16 +78,24 @@ public class AttributeResolver<TEntity> where TEntity : Entity
             select attribute;
 
         foreach (var attribute in attributes)
+        {
             if (TargetEntity.Contains(attribute.LogicalName))
             {
                 mergedEntity[attribute.LogicalName] = TargetEntity[attribute.LogicalName];
-                if (TargetEntity.FormattedValues.ContainsKey(attribute.LogicalName)) mergedEntity.FormattedValues.Add(attribute.LogicalName, TargetEntity.FormattedValues[attribute.LogicalName]);
+                if (TargetEntity.FormattedValues.ContainsKey(attribute.LogicalName))
+                {
+                    mergedEntity.FormattedValues.Add(attribute.LogicalName, TargetEntity.FormattedValues[attribute.LogicalName]);
+                }
             }
             else if (PreEntity.Contains(attribute.LogicalName))
             {
                 mergedEntity[attribute.LogicalName] = PreEntity[attribute.LogicalName];
-                if (PreEntity.FormattedValues.ContainsKey(attribute.LogicalName)) mergedEntity.FormattedValues.Add(attribute.LogicalName, PreEntity.FormattedValues[attribute.LogicalName]);
+                if (PreEntity.FormattedValues.ContainsKey(attribute.LogicalName))
+                {
+                    mergedEntity.FormattedValues.Add(attribute.LogicalName, PreEntity.FormattedValues[attribute.LogicalName]);
+                }
             }
+        }
 
         return mergedEntity.ToEntity<TEntity>();
     }
@@ -106,12 +121,21 @@ public class AttributeResolver<TEntity> where TEntity : Entity
     {
         var attributeName = GetAttributeLogicalName(attributeExpression);
 
-        if (!TargetEntity.Contains(attributeName)) return false;
+        if (!TargetEntity.Contains(attributeName))
+        {
+            return false;
+        }
 
-        if (PreEntity == null) return true;
+        if (PreEntity == null)
+        {
+            return true;
+        }
 
         IEqualityComparer<TValue>? typeEqualizer = null;
-        if (_genericTypeCache.Contains(typeof(TValue).FullName!)) typeEqualizer = _genericTypeCache[typeof(TValue).FullName!] as EqualityComparer<TValue>;
+        if (_genericTypeCache.Contains(typeof(TValue).FullName!))
+        {
+            typeEqualizer = _genericTypeCache[typeof(TValue).FullName!] as EqualityComparer<TValue>;
+        }
 
         if (typeEqualizer == null)
         {

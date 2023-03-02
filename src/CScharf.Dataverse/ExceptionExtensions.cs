@@ -25,16 +25,12 @@ public static class ExceptionExtensions
     }
 
     public static bool IsDerivedFrom<TException>(this Exception exception)
-        where TException : Exception
-    {
-        return exception.InnerException?.IsDerivedFrom<TException>() ??
-               exception.GetType().IsAssignableTo(typeof(TException));
-    }
+        where TException : Exception =>
+        exception.InnerException?.IsDerivedFrom<TException>() ??
+        exception.GetType().IsAssignableTo(typeof(TException));
 
-    public static TException? GetInnerException<TException>(this Exception exception) where TException : Exception
-    {
-        return exception.GetType().IsAssignableTo(typeof(TException))
+    public static TException? GetInnerException<TException>(this Exception exception) where TException : Exception =>
+        exception.GetType().IsAssignableTo(typeof(TException))
             ? (TException)exception
             : exception.InnerException?.GetInnerException<TException>() ?? null;
-    }
 }

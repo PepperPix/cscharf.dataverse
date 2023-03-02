@@ -3,7 +3,6 @@
 public static class OrganizationServiceExtensions
 {
     /// <summary>
-    /// 
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="service"></param>
@@ -18,7 +17,6 @@ public static class OrganizationServiceExtensions
         ?? Enumerable.Empty<TEntity>();
 
     /// <summary>
-    /// 
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="service"></param>
@@ -30,7 +28,6 @@ public static class OrganizationServiceExtensions
         service.Retrieve<TEntity>(entityReference.LogicalName, entityReference.Id, columns);
 
     /// <summary>
-    /// 
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="service"></param>
@@ -43,7 +40,6 @@ public static class OrganizationServiceExtensions
         service.Retrieve(logicalName, id, columns).ToEntity<TEntity>();
 
     /// <summary>
-    /// 
     /// </summary>
     /// <param name="service"></param>
     /// <param name="record"></param>
@@ -68,7 +64,6 @@ public static class OrganizationServiceExtensions
     }
 
     /// <summary>
-    /// 
     /// </summary>
     /// <param name="service"></param>
     /// <param name="reference"></param>
@@ -94,7 +89,6 @@ public static class OrganizationServiceExtensions
     }
 
     /// <summary>
-    /// 
     /// </summary>
     /// <param name="service"></param>
     /// <param name="entity"></param>
@@ -116,7 +110,6 @@ public static class OrganizationServiceExtensions
     }
 
     /// <summary>
-    /// 
     /// </summary>
     /// <param name="service"></param>
     /// <param name="entity"></param>
@@ -136,7 +129,6 @@ public static class OrganizationServiceExtensions
     }
 
     /// <summary>
-    /// 
     /// </summary>
     /// <param name="service"></param>
     /// <param name="name"></param>
@@ -157,7 +149,6 @@ public static class OrganizationServiceExtensions
     }
 
     /// <summary>
-    /// 
     /// </summary>
     /// <param name="service"></param>
     /// <param name="name"></param>
@@ -180,7 +171,6 @@ public static class OrganizationServiceExtensions
     }
 
     /// <summary>
-    /// 
     /// </summary>
     /// <param name="service"></param>
     /// <param name="name"></param>
@@ -203,7 +193,6 @@ public static class OrganizationServiceExtensions
     }
 
     /// <summary>
-    /// 
     /// </summary>
     /// <typeparam name="TR"></typeparam>
     /// <typeparam name="TO"></typeparam>
@@ -227,7 +216,6 @@ public static class OrganizationServiceExtensions
     }
 
     /// <summary>
-    /// 
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="service"></param>
@@ -252,7 +240,6 @@ public static class OrganizationServiceExtensions
     }
 
     /// <summary>
-    /// 
     /// </summary>
     /// <typeparam name="TR"></typeparam>
     /// <typeparam name="TO"></typeparam>

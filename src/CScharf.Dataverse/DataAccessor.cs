@@ -4,20 +4,19 @@ public class DataAccessor
 {
     private readonly OrganizationServiceContext _dataContext;
 
-    public DataAccessor(OrganizationServiceContext dataContext)
-    {
-        _dataContext = dataContext;
-    }
+    public DataAccessor(OrganizationServiceContext dataContext) => _dataContext = dataContext;
 
     /// <summary>
-    /// Returns an entity by its id.
-    /// Properties should be specified like this:
-    /// x => new Account { Id = x.Id, Name = x.Name, ... }
+    ///     Returns an entity by its id.
+    ///     Properties should be specified like this:
+    ///     x => new Account { Id = x.Id, Name = x.Name, ... }
     /// </summary>
     /// <param name="id">The id of the entity to be returned.</param>
-    /// <param name="propertiesSelector">the properties of the entity to return.
-    /// If not specified all properties are returned. Properties should be specified like this:
-    /// x => new Account { Id = x.Id, Name = x.Name, ... }</param>
+    /// <param name="propertiesSelector">
+    ///     the properties of the entity to return.
+    ///     If not specified all properties are returned. Properties should be specified like this:
+    ///     x => new Account { Id = x.Id, Name = x.Name, ... }
+    /// </param>
     /// <typeparam name="TEntity">The type of the entity to be queried.</typeparam>
     /// <returns>the queried entity of type TEntity or null if no entity found.</returns>
     public TEntity? GetById<TEntity>(Guid id, Expression<Func<TEntity, TEntity>>? propertiesSelector = null)
@@ -33,8 +32,8 @@ public class DataAccessor
     }
 
     /// <summary>
-    /// Returns an IQueryable with an applied filter.
-    /// It has no applied Select statement and therefore returns all columns of the queried entities.
+    ///     Returns an IQueryable with an applied filter.
+    ///     It has no applied Select statement and therefore returns all columns of the queried entities.
     /// </summary>
     /// <param name="filter">The filter to apply to the query.</param>
     /// <typeparam name="TEntity">The type of the entity to be queried for.</typeparam>
@@ -52,18 +51,16 @@ public class DataAccessor
     }
 
     /// <summary>
-    /// Returns an IQueryable of type TEntity.
+    ///     Returns an IQueryable of type TEntity.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity to be queried for.</typeparam>
     /// <returns>An IQueryable of type TEntity.</returns>
-    public IQueryable<TEntity> GetAll<TEntity>() where TEntity : Entity
-    {
-        return _dataContext
+    public IQueryable<TEntity> GetAll<TEntity>() where TEntity : Entity =>
+        _dataContext
             .CreateQuery<TEntity>();
-    }
 
     /// <summary>
-    /// Creates an entity in Microsoft Dataverse.
+    ///     Creates an entity in Microsoft Dataverse.
     /// </summary>
     /// <param name="entity">The entity to be created.</param>
     /// <typeparam name="TEntity">The type of the entity to be created</typeparam>
@@ -80,7 +77,7 @@ public class DataAccessor
     }
 
     /// <summary>
-    /// Creates a collection of entities in Microsoft Dataverse.
+    ///     Creates a collection of entities in Microsoft Dataverse.
     /// </summary>
     /// <param name="entities">the entities to be created.</param>
     /// <typeparam name="TEntity">The type of the entities to be created.</typeparam>
@@ -95,7 +92,7 @@ public class DataAccessor
     }
 
     /// <summary>
-    /// Updates an entity in Microsoft Dataverse.
+    ///     Updates an entity in Microsoft Dataverse.
     /// </summary>
     /// <param name="entity">The entity to be updated.</param>
     /// <typeparam name="TEntity">The type of the entity to be updated.</typeparam>
@@ -117,7 +114,7 @@ public class DataAccessor
     }
 
     /// <summary>
-    /// Updates a collection of entities in Microsoft Dataverse.
+    ///     Updates a collection of entities in Microsoft Dataverse.
     /// </summary>
     /// <param name="entities">The entities to be updated.</param>
     /// <typeparam name="TEntity">The type of the entities to be updated</typeparam>
@@ -132,7 +129,7 @@ public class DataAccessor
     }
 
     /// <summary>
-    /// Deletes an entity in the Microsoft Dataverse.
+    ///     Deletes an entity in the Microsoft Dataverse.
     /// </summary>
     /// <param name="entity">The entity to be deleted.</param>
     /// <typeparam name="TEntity">The type of the entity to be deleted.</typeparam>
@@ -154,7 +151,7 @@ public class DataAccessor
     }
 
     /// <summary>
-    /// Deletes a collection of entities in Microsoft Dataverse.
+    ///     Deletes a collection of entities in Microsoft Dataverse.
     /// </summary>
     /// <param name="entities">The entitites to be deleted.</param>
     /// <typeparam name="TEntity">The type of the entities to be deleted.</typeparam>
@@ -169,7 +166,7 @@ public class DataAccessor
     }
 
     /// <summary>
-    /// Deletes an entity in Microsoft Dataverse.
+    ///     Deletes an entity in Microsoft Dataverse.
     /// </summary>
     /// <param name="id">The id of the entity to be deleted.</param>
     /// <typeparam name="TEntity">The type of the entity to be deleted.</typeparam>
@@ -189,7 +186,7 @@ public class DataAccessor
     }
 
     /// <summary>
-    /// Associates a parent entity with a collection of child entities for the given relationship.
+    ///     Associates a parent entity with a collection of child entities for the given relationship.
     /// </summary>
     /// <param name="parentEntity">The parent entity to be associated.</param>
     /// <param name="relationshipName">The name of the relationship.</param>
@@ -220,10 +217,8 @@ public class DataAccessor
     }
 
 
-
-
     /// <summary>
-    /// Associates a parent entity with a collection of child entities for the given relationship.
+    ///     Associates a parent entity with a collection of child entities for the given relationship.
     /// </summary>
     /// <param name="parentEntity">The parent entity to be associated.</param>
     /// <param name="relationshipName">The name of the relationship.</param>
@@ -241,7 +236,7 @@ public class DataAccessor
     }
 
     /// <summary>
-    /// Associates a parent entity with a collection of child entities for the given relationship.
+    ///     Associates a parent entity with a collection of child entities for the given relationship.
     /// </summary>
     /// <param name="parentEntity">The parent entity reference to be associated.</param>
     /// <param name="relationshipName">The name of the relationship.</param>
@@ -264,7 +259,7 @@ public class DataAccessor
     }
 
     /// <summary>
-    /// Disassociates a parent entity from a collaction of child entities for the given relationship.
+    ///     Disassociates a parent entity from a collaction of child entities for the given relationship.
     /// </summary>
     /// <param name="parentEntity">The parent entity to be disassociated.</param>
     /// <param name="relationshipName">The name of the relationship.</param>
@@ -306,7 +301,7 @@ public class DataAccessor
     }
 
     /// <summary>
-    /// Disassociates a parent entity from a collaction of child entities for the given relationship.
+    ///     Disassociates a parent entity from a collaction of child entities for the given relationship.
     /// </summary>
     /// <param name="parentEntity">The parent entity to be disassociated.</param>
     /// <param name="relationshipName">The name of the relationship.</param>
@@ -324,7 +319,7 @@ public class DataAccessor
     }
 
     /// <summary>
-    /// Disassociates a parent entity from a collaction of child entities for the given relationship.
+    ///     Disassociates a parent entity from a collaction of child entities for the given relationship.
     /// </summary>
     /// <param name="parentEntity">The parent entity reference to be disassociated.</param>
     /// <param name="relationshipName">The name of the relationship.</param>
@@ -347,7 +342,7 @@ public class DataAccessor
     }
 
     /// <summary>
-    /// Writes all changes to Microsoft Dataverse.
+    ///     Writes all changes to Microsoft Dataverse.
     /// </summary>
     public DataAccessor Commit()
     {
@@ -356,7 +351,7 @@ public class DataAccessor
     }
 
     /// <summary>
-    /// Rollbacks all changes made since the last commit.
+    ///     Rollbacks all changes made since the last commit.
     /// </summary>
     public DataAccessor Rollback()
     {

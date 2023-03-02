@@ -3,7 +3,7 @@
 public static class OptionSetExtension
 {
     /// <summary>
-    /// Returns Value of OptionSet in select language or UserLanguage of Repository
+    ///     Returns Value of OptionSet in select language or UserLanguage of Repository
     /// </summary>
     /// <param name="service" cref="IOrganizationService">Organization service</param>
     /// <param name="optionSetName">OptionSet</param>
@@ -35,15 +35,20 @@ public static class OptionSetExtension
         var optionList = retrievedOptionSetMetadata.Options.ToArray();
         foreach (var optionMetadata in optionList)
         {
-            if (optionMetadata.Label.UserLocalizedLabel.Label.Trim() != label) continue;
+            if (optionMetadata.Label.UserLocalizedLabel.Label.Trim() != label)
+            {
+                continue;
+            }
+
             SetCacheAbsolute(cacheKey, optionMetadata.Value, 121);
             return optionMetadata.Value;
         }
+
         throw new InvalidPluginExecutionException($"OptionSet {label} not found in {optionSetName}!");
     }
 
     /// <summary>
-    /// Returns Label of OptionSet in select language or UserLanguage of Repository
+    ///     Returns Label of OptionSet in select language or UserLanguage of Repository
     /// </summary>
     /// <param name="service" cref="IOrganizationService">Organization service</param>
     /// <param name="optionSetName">OptionSet</param>
@@ -71,28 +76,36 @@ public static class OptionSetExtension
         var optionList = retrievedOptionSetMetadata.Options.ToArray();
         foreach (var optionMetadata in optionList)
         {
-            if (optionMetadata.Value != optionSetValue) continue;
+            if (optionMetadata.Value != optionSetValue)
+            {
+                continue;
+            }
+
             SetCacheAbsolute(cacheKey, optionMetadata.Label.UserLocalizedLabel.Label.Trim(), 121);
             return optionMetadata.Label.LocalizedLabels.Single(l => l.LanguageCode == lcid).Label.Trim();
         }
+
         throw new InvalidPluginExecutionException($"OptionSet {optionSetValue} not found in {optionSetName}!");
     }
 
-    static bool TryGetCache(string key, out object? value)
+    private static bool TryGetCache(string key, out object? value)
     {
         value = MemoryCache.Default.Get(key);
         return value != null;
     }
 
-    static void SetCacheAbsolute(string key, object? value, int ttl)
+    private static void SetCacheAbsolute(string key, object? value, int ttl)
     {
-        if(value == null) return;
+        if (value == null)
+        {
+            return;
+        }
 
         if (ttl < 15)
         {
             ttl = 15;
         }
+
         MemoryCache.Default.Set(key, value, new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.UtcNow.AddSeconds(ttl) });
     }
 }
-
